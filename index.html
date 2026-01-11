@@ -1,0 +1,905 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Manawave Exim Globe - Import & Export Solutions</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    <style>
+        body {
+            font-family: "Poppins", sans-serif;
+            scroll-behavior: smooth;
+            margin: 0;
+            background-color: #f5f5dc; /* Main beige background */
+            color: #333; /* Slightly darker text for better contrast on beige */
+        }
+        nav {
+            background-color: #003366;
+            margin-bottom: 0;
+        }
+        nav a.nav-link {
+            color: #fff !important;
+            margin: 0 10px;
+            font-weight: 500;
+        }
+        nav a.nav-link:hover {
+            color: #ffc107 !important;
+        }
+        .hero {
+            position: relative;
+            height: 95vh;
+            overflow: hidden;
+            margin: 0;
+            padding: 0;
+        }
+        .hero-slide {
+            height: 95vh;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            background-size: cover;
+            background-position: center bottom;
+            margin: 0;
+            padding: 0;
+        }
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            padding: 20px;
+        }
+        .hero h1 {
+            font-size: 3rem;
+            font-weight: 700;
+        }
+        .hero p {
+            font-size: 1.2rem;
+            margin: 20px 0;
+        }
+        .btn-primary {
+            background-color: #ffc107;
+            color: #003366;
+            border: none;
+            font-weight: 600;
+        }
+        .btn-primary:hover {
+            background-color: #e0a800;
+        }
+        section {
+            padding: 80px 0;
+        }
+        .section-title {
+            text-align: center;
+            font-weight: 700;
+            font-size: 2rem;
+            margin-bottom: 50px;
+            color: #003366;
+        }
+        .custom-card {
+            border: none;
+            border-radius: 20px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            background-color: #fff; /* Cards remain white for contrast */
+        }
+        .custom-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 12px 25px rgba(0, 0, 0, 0.2);
+        }
+        .custom-card .card-body {
+            padding: 30px;
+        }
+        .service-card {
+            border: none;
+            border-radius: 20px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            background-color: #fff;
+        }
+        .service-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 12px 25px rgba(0, 0, 0, 0.2);
+        }
+        .service-card i {
+            font-size: 40px;
+            color: #ffc107;
+            margin-bottom: 15px;
+        }
+        .team-card img {
+            width: 150px;
+            height: 150px;
+            object-fit: cover;
+            border-radius: 50%;
+            margin-bottom: 15px;
+        }
+        .team-card .social-links a {
+            color: #003366;
+            margin: 0 5px;
+            font-size: 18px;
+        }
+        .team-card .social-links a:hover {
+            color: #ffc107;
+        }
+        .contact-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 10px;
+        }
+        .footer {
+            background-color: #003366;
+            color: white;
+            padding: 40px 0;
+        }
+        .footer h3 {
+            color: #ffc107;
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+        }
+        .footer p {
+            color: white;
+            font-size: 0.9rem;
+            margin-bottom: 8px;
+        }
+        .footer a {
+            color: white;
+            text-decoration: none;
+        }
+        .footer a:hover {
+            color: #ffc107;
+        }
+        .footer .btn-social {
+            width: 35px;
+            height: 35px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            border: 1px solid white;
+            margin-right: 8px;
+            font-size: 0.9rem;
+        }
+        .footer .btn-social:hover {
+            background-color: #ffc107;
+            border-color: #ffc107;
+        }
+        .footer .input-group .form-control {
+            padding: 10px;
+            border-radius: 5px 0 0 5px;
+            font-size: 0.9rem;
+        }
+        .footer .input-group .btn-primary {
+            border-radius: 0 5px 5px 0;
+            padding: 0 15px;
+            font-size: 0.9rem;
+        }
+        .footer-bottom {
+            background-color: #002244;
+            padding: 15px 0;
+            border-top: 1px solid #3E3E4E;
+        }
+        .footer-bottom a {
+            color: #ffc107;
+        }
+        .footer-bottom a:hover {
+            color: #e0a800;
+        }
+        .footer .row > div {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+        }
+        .footer .newsletter {
+            align-items: stretch;
+        }
+        .about-section {
+            background-color: #faf9f0; /* Lighter beige variant for subtle section separation */
+            position: relative;
+        }
+        .about-section .counter {
+            font-size: 2.5rem;
+        }
+        .about-section .btn-warning {
+            width: 60px;
+            height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .counter-box {
+            text-align: center;
+            margin-top: 30px;
+        }
+        .counter {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #003366;
+            display: block;
+        }
+        .counter-text {
+            font-size: 1rem;
+            color: #666;
+        }
+        @keyframes fadeInLeft {
+            0% { opacity: 0; transform: translateX(-50px); }
+            100% { opacity: 1; transform: translateX(0); }
+        }
+        @keyframes fadeInRight {
+            0% { opacity: 0; transform: translateX(50px); }
+            100% { opacity: 1; transform: translateX(0); }
+        }
+        /* Features Section */
+        .features-section {
+            background-color: #faf9f0; /* Matching lighter beige */
+        }
+        .features-section h6 {
+            color: #ffc107;
+            text-transform: uppercase;
+            font-weight: 600;
+            font-size: 1rem;
+            margin-bottom: 15px;
+        }
+        .features-section h1 {
+            color: #003366;
+            font-size: 2.2rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+        }
+        .features-section p {
+            font-size: 1rem;
+            color: #666;
+            margin-bottom: 20px;
+        }
+        .features-section .list-inline li {
+            margin-bottom: 10px;
+        }
+        .features-section .list-inline h6 {
+            color: #003366;
+            font-size: 1rem;
+            display: flex;
+            align-items: center;
+        }
+        .features-section .list-inline i {
+            color: #ffc107;
+            margin-right: 10px;
+        }
+        .features-img {
+            border-radius: 10px;
+        }
+         .icon-circle {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            color: #003366;
+        }
+        .about-heading {
+            font-size: 1.8rem;
+            letter-spacing: 1px;
+        }
+        footer {
+            background-color: #003366;
+            color: white;
+            text-align: center;
+            padding: 40px 20px;
+        }
+        footer a {
+            color: #ffc107;
+            text-decoration: none;
+        }
+
+        .log-item .nav-link.btn:hover {
+            background-color: #ffc107 !important;
+            color: #212529 !important;
+            transition: all 0.3s ease;
+        }
+        .custom-success-modal {
+            border-radius: 12px;
+            border: none;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+            animation: slideDown 0.6s ease-out;
+            position: absolute;
+            top: 15%;
+            left: 50%;
+            transform: translate(-50%, 0);
+            width: 90%;
+            max-width: 400px;
+        }
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translate(-50%, -40%);
+            }
+            to {
+                opacity: 1;
+                transform: translate(-50%, 0);
+            }
+        }
+        .modal-dialog {
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            height: 100vh;
+        }
+
+        .custom-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: white !important;
+            opacity: 0.3;
+            border: none;
+            transition: all 0.3s ease-in-out;
+        }
+        .custom-dot.active {
+            opacity: 1;
+            transform: scale(0.8);
+            box-shadow: 0 0 8px 2px rgba(255,255,255,0.6);
+        }
+        .custom-arrow {
+            filter: invert(1);
+        }
+
+        /* Override Bootstrap's bg-light for Services & Contact sections */
+        .bg-light {
+            background-color: #fdfdfb !important; /* Very light beige */
+        }
+        .product-img-container {
+            height: 250px; /* Fixed height for consistency */
+            overflow: hidden;
+            background-color: #f0f0f0; /* Light fallback if image loads slowly */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .product-img {
+            width: 100%;
+            height: 250px;
+            object-fit: cover; /* Crops image nicely to fill container without distortion */
+            transition: transform 0.3s ease;
+        }
+
+        .product-img:hover {
+            transform: scale(1.05); /* Optional subtle zoom on hover */
+        }
+
+        .card-body {
+            padding: 20px; /* Slightly reduced for balance */
+        }
+    </style>
+</head>
+<body>
+    <!-- Your existing body content remains unchanged -->
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
+        <div class="container">
+            <a class="navbar-brand fw-bold text-warning" href="#">MANAWAVE EXIM GLOBE PVT LTD</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item"><a href="#home" class="nav-link">Home</a></li>
+                    <li class="nav-item"><a href="#about" class="nav-link">About</a></li>
+                    <li class="nav-item"><a href="#services" class="nav-link">Services</a></li>
+                    <li class="nav-item"><a href="#features" class="nav-link">Why Us</a></li>
+                    <li class="nav-item"><a href="#team" class="nav-link">Our Team</a></li>
+                    <li class="nav-item"><a href="#contact" class="nav-link">Contact</a></li>
+                    <ul class="navbar-nav ms-auto align-items-center">
+                    </ul>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div id="heroCarousel" class="carousel slide" data-bs-ride="carousel" data-bs-interval="4000">
+
+            <!-- WHITE DOTS (Indicators) -->
+            <div class="carousel-indicators">
+            <button type="button" data-bs-target="#heroCarousel" data-bs-slide-to="0" class="active custom-dot"></button>
+            <button type="button" data-bs-target="#heroCarousel" data-bs-slide-to="1" class="custom-dot"></button>
+            <button type="button" data-bs-target="#heroCarousel" data-bs-slide-to="2" class="custom-dot"></button>
+            </div>
+
+            <!-- Carousel Slides -->
+            <div class="carousel-inner">
+            <div class="carousel-item active">
+                <div class="hero-slide" style="background:linear-gradient(rgba(0,0,0,0.5),rgba(0,0,0,0.6)), url('images/CORO1.jpg') center bottom/cover no-repeat;">
+                <div class="hero-content">
+                    <h1>Connecting Global Markets Seamlessly</h1>
+                    <p>Trusted Partner for Import, Export & International Logistics</p>
+                    <a href="#contact" class="btn btn-primary btn-lg">Get a Quote</a>
+                </div>
+                </div>
+            </div>
+
+            <div class="carousel-item">
+                <div class="hero-slide" style="background:linear-gradient(rgba(0,0,0,0.5),rgba(0,0,0,0.6)),url('images/CORO2.jpg') center bottom/cover no-repeat;">
+                <div class="hero-content">
+                    <h1>Expanding Trade Horizons</h1>
+                    <p>Your Gateway to Global Supply Chains</p>
+                    <a href="#contact" class="btn btn-primary btn-lg">Get a Quote</a>
+                </div>
+                </div>
+            </div>
+
+            <div class="carousel-item">
+                <div class="hero-slide" style="background:linear-gradient(rgba(0,0,0,0.5),rgba(0,0,0,0.6)),url('images/CORO3.jpg') center bottom/cover no-repeat;">
+                <div class="hero-content">
+                    <h1>Reliable, Fast, Global</h1>
+                    <p>Delivering Excellence Across Borders</p>
+                    <a href="#contact" class="btn btn-primary btn-lg">Get a Quote</a>
+                </div>
+                </div>
+            </div>
+            </div>
+
+            <!-- PREV & NEXT ARROWS -->
+            <button class="carousel-control-prev">
+            <span class="carousel-control-prev-icon custom-arrow"></span>
+            </button>
+
+            <button class="carousel-control-next">
+            <span class="carousel-control-next-icon custom-arrow"></span>
+            </button>
+
+        </div>
+        </section>
+
+    <!-- About Section -->
+    <section id="about" class="py-5 about-section">
+    <div class="container">
+        <div class="row align-items-center">
+        
+        <!-- Left Image -->
+        <div class="col-lg-5 mb-4 mb-lg-0 position-relative">
+            <img src="images/ABOUT.jpg" class="img-fluid rounded shadow w-100" alt="About GlobalTradeX">
+        </div>
+
+        <!-- Right Content -->
+        <div class="col-lg-7">
+            <h6 class="about-heading text-uppercase fw-bold mb-4 text-center" style="color:#003366;">
+            About Us
+            </h6>
+            <h2 class="fw-bold mb-3 text-center" style="color:#003366;">
+            Your Trusted Global Import & Export Partner
+            </h2>
+
+            <p class="mb-3 text-center" style="color:#6e6c6c;">
+            At <strong>Manawave Exim Globe</strong>, we redefine international trade with precision, speed, and reliability.
+            From freight forwarding to customs clearance, we manage every step to ensure smooth cross-border operations.
+            </p>
+            <p class="mb-4 text-center" style="color:#6e6c6c;">
+            With a presence across 50+ countries, our mission is to empower businesses to expand confidently in global markets.
+            Our expertise and technology-driven logistics solutions make us your perfect trade partner.
+            </p>
+
+            <!-- Blue Pointers -->
+            <div class="row mb-5 text-center">
+            <div class="col-md-4 mb-3">
+                <div class="d-flex align-items-center">
+                <div class="icon-circle bg-primary text-white d-flex align-items-center justify-content-center me-3">
+                    <i class="bi bi-trophy fs-5"></i>
+                </div>
+                <span class="fw-semibold" style="color:#003366;">Best In Industry</span>
+                </div>
+            </div>
+            <div class="col-md-4 mb-3">
+                <div class="d-flex align-items-center">
+                <div class="icon-circle bg-primary text-white d-flex align-items-center justify-content-center me-3">
+                    <i class="bi bi-lightning-charge fs-5"></i>
+                </div>
+                <span class="fw-semibold" style="color:#003366;">Emergency Services</span>
+                </div>
+            </div>
+            <div class="col-md-4 mb-3">
+                <div class="d-flex align-items-center">
+                <div class="icon-circle bg-primary text-white d-flex align-items-center justify-content-center me-3">
+                    <i class="bi bi-headset fs-5"></i>
+                </div>
+                <span class="fw-semibold" style="color:#003366;">24/7 Customer Support</span>
+                </div>
+            </div>
+            </div>
+
+            <!-- Counters -->
+            <div class="row text-center mt-4">
+            <div class="col-md-4">
+                <h2 class="fw-bold counter" data-target="2" style="color:#003366;">0</h2>
+                <p class="fw-semibold" style="color:#003366;">Years of Excellence</p>
+            </div>
+            <div class="col-md-4">
+                <h2 class="fw-bold counter" data-target="50" style="color:#003366;">0</h2>
+                <p class="fw-semibold" style="color:#003366;">Satisfied Clients</p>
+            </div>
+            <div class="col-md-4">
+                <h2 class="fw-bold counter" data-target="450" style="color:#003366;">0</h2>
+                <p class="fw-semibold" style="color:#003366;">Delivered Items/Stock</p>
+            </div>
+            </div>
+        </div>
+        </div>
+    </div>
+    </section>
+
+
+    <!-- Services Section -->
+    <section id="services" class="bg-light">
+        <div class="container">
+            <h2 class="section-title">Our Services</h2>
+            <div class="row g-4">
+                <div class="col-md-3">
+                    <div class="card service-card text-center p-4">
+                        <i class="fa-solid fa-ship"></i>
+                        <h5>Import Services</h5>
+                        <p>Efficient sourcing, customs clearance, and logistics for seamless import operations.</p>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="card service-card text-center p-4">
+                        <i class="fa-solid fa-plane-departure"></i>
+                        <h5>Export Services</h5>
+                        <p>Comprehensive export handling, compliance, and global delivery management.</p>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="card service-card text-center p-4">
+                        <i class="fa-solid fa-boxes-stacked"></i>
+                        <h5>Warehousing</h5>
+                        <p>Secure, scalable, and strategically located storage for your global supply chain.</p>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="card service-card text-center p-4">
+                        <i class="fa-solid fa-truck-fast"></i>
+                        <h5>Freight Forwarding</h5>
+                        <p>Reliable freight management for sea, air, and land transport worldwide.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <section id="products" class="mt-5">
+        <div class="container">
+            <h2 class="section-title">Our Products</h2>
+
+            <div class="row g-4">
+
+                <!-- Product 1 -->
+                <div class="col-md-4">
+                    <div class="card custom-card team-card text-center h-100">
+                        <div class="product-img-container">
+                            <img src="https://basmatiriceexport.com/wp-content/uploads/2024/05/IR64-Parboiled-Rice-Exporters-in-India-1024x576.jpg.webp" 
+                                class="img-fluid product-img" alt="IR64 Rice">
+                        </div>
+                        <div class="card-body d-flex flex-column">
+                            <h5 class="card-title mt-3">IR64 Rice</h5>
+                            <p class="card-text text-muted">Premium Export Quality</p>
+                            <p class="card-text mt-auto">
+                                High-quality IR64 rice known for its excellent grain texture,
+                                consistency, and suitability for global markets.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Product 2 -->
+                <div class="col-md-4">
+                    <div class="card custom-card team-card text-center h-100">
+                        <div class="product-img-container">
+                            <img src="https://media.istockphoto.com/id/1182295809/photo/brown-whole-coconut-dry-pattern-tropical-many-fruits-pile.jpg?s=170667a&w=0&k=20&c=aAQSr-hwaDmIiBBSEeYgPyBj-UO_uQgC2cPlJuLPZHE=" 
+                                class="img-fluid product-img" alt="Coconut">
+                        </div>
+                        <div class="card-body d-flex flex-column">
+                            <h5 class="card-title mt-3">Coconut</h5>
+                            <p class="card-text text-muted">Coming Soon</p>
+                            <p class="card-text mt-auto">
+                                Fresh and processed coconut products will be introduced soon,
+                                meeting international quality standards.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Product 3 -->
+                <div class="col-md-4">
+                    <div class="card custom-card team-card text-center h-100">
+                        <div class="product-img-container">
+                            <img src="https://restaurantindia.s3.ap-south-1.amazonaws.com/s3fs-public/2025-03/Makhana%20Benefits%20%282%29.jpg" 
+                                class="img-fluid product-img" alt="Makhana">
+                        </div>
+                        <div class="card-body d-flex flex-column">
+                            <h5 class="card-title mt-3">Makhana (Fox Nuts)</h5>
+                            <p class="card-text text-muted">Coming Soon</p>
+                            <p class="card-text mt-auto">
+                                Premium-grade makhana sourced for nutrition, purity,
+                                and export-ready packaging.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+
+    <!-- Features Section (Replaces Why Choose Us) -->
+    <section id="features" class="features-section">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-5">
+                    <img class="img-fluid w-100 features-img" src="images/NETWORK.jpg" alt="Features">
+
+                </div>
+                <div class="col-lg-7 py-5 py-lg-0">
+                    <h6>Why Choose Us</h6>
+                    <h1>Faster, Safe & Trusted Logistics Services</h1>
+                    <p>At Manawave Exim Globe, we deliver unparalleled logistics solutions, ensuring your goods reach their destination swiftly and securely. Our global expertise and robust network guarantee seamless trade operations for businesses worldwide.</p>
+                    <ul class="list-inline">
+                        <li><h6><i class="far fa-dot-circle mr-3"></i>Best In Industry</h6></li>
+                        <li><h6><i class="far fa-dot-circle mr-3"></i>Reliable Global Network</h6></li>
+                        <li><h6><i class="far fa-dot-circle mr-3"></i>24/7 Customer Support</h6></li>
+                    </ul>
+                    <a href="#contact" class="btn btn-primary mt-3 py-2 px-4">Get Started</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Team Section -->
+    <section id="team">
+        <div class="container">
+            <h2 class="section-title">Our Leadership Team</h2>
+            <div class="row g-4">
+                <div class="col-md-4">
+                    <div class="card custom-card team-card text-center">
+                        <div class="card-body">
+                            <img src="images/aman.jpeg" class="img-fluid" alt="CEO">
+                            <h5 class="card-title mt-3">Arvindh Sanatala</h5>
+                            <p class="card-text text-muted">Director</p>
+                            <p class="card-text">Leading Manawave Exim Globe with a vision for seamless global logistics.</p>
+                            <div class="social-links">
+                                <a href="#"><i class="fab fa-linkedin"></i></a>
+                                <a href="#"><i class="fab fa-twitter"></i></a>
+                                <a href="#"><i class="fab fa-facebook"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card custom-card team-card text-center">
+                        <div class="card-body">
+                            <img src="images/harsh.jpeg" class="img-fluid" alt="Partner1">
+                            <h5 class="card-title mt-3">Harshdhar Shrinu Naidu</h5>
+                            <p class="card-text text-muted">Director</p>
+                            <p class="card-text">Driving operational excellence in international trade solutions.</p>
+                            <div class="social-links">
+                                <a href="#"><i class="fab fa-linkedin"></i></a>
+                                <a href="#"><i class="fab fa-twitter"></i></a>
+                                <a href="#"><i class="fab fa-facebook"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card custom-card team-card text-center">
+                        <div class="card-body">
+                            <img src="images/pic3.jpeg" class="img-fluid" alt="Partner2">
+                            <h5 class="card-title mt-3">Tanvir Singh Chawla</h5>
+                            <p class="card-text text-muted">Director</p>
+                            <p class="card-text">Ensuring financial strategies align with global growth goals.</p>
+                            <div class="social-links">
+                                <a href="#"><i class="fab fa-linkedin"></i></a>
+                                <a href="#"><i class="fab fa-twitter"></i></a>
+                                <a href="#"><i class="fab fa-facebook"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="bg-light">
+        <div class="container">
+            <h2 class="section-title">Get In Touch</h2>
+            <div class="row justify-content-center">
+                <div class="col-md-10">
+                    <div class="card custom-card">
+                        <div class="card-body">
+                            <div class="row align-items-center">
+                                <div class="col-md-6">
+                                    <!-- NOTE: NO action, NO method -->
+                                    <form id="contactForm" novalidate>
+                                        <div class="mb-3">
+                                            <label for="name" class="form-label">Full Name</label>
+                                            <input type="text" id="name" name="name" class="form-control" required />
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="email" class="form-label">Email Address</label>
+                                            <input type="email" id="email" name="email" class="form-control" required />
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="message" class="form-label">Message</label>
+                                            <textarea id="message" name="message" rows="4" class="form-control" required></textarea>
+                                        </div>
+
+                                        <button type="submit" class="btn btn-primary w-100" id="submitBtn">
+                                            <span class="spinner-border spinner-border-sm d-none" role="status"></span>
+                                            <span class="btn-text">Send Message</span>
+                                        </button>
+
+                                    </form>
+                                </div>
+                                <div class="col-md-6 text-center">
+                                    <img src="images/NETWORK.jpg" class="img-fluid contact-img" alt="Contact Us">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <div class="modal fade" id="successModal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content custom-success-modal">
+        <div class="modal-body text-center">
+            <h5 class="fw-bold mb-2">✅ Successfully Submitted!</h5>
+            <p class="mb-0">Your message has been received. We’ll connect with you soon 😊</p>
+        </div>
+        </div>
+    </div>
+    </div>
+
+
+    <!-- Footer Start -->
+     <footer>
+        <p>© 2025 Manawave Exim Globe Pvt Ltd. All Rights Reserved. | Designed for Global Commerce</p>
+
+        <p>
+            <i class="fa-solid fa-envelope mx-1"></i>
+            <a href="mailto:manawave.eximglobe@gmail.com">
+                manawave.eximglobe@gmail.com
+            </a>
+        </p>
+
+        <p>Follow us:
+            <a href="#"><i class="fab fa-facebook mx-1"></i></a>
+            <a href="#"><i class="fab fa-linkedin mx-1"></i></a>
+            <a href="#"><i class="fab fa-instagram mx-1"></i></a>
+        </p>
+    </footer>
+
+ 
+    <!-- Footer End -->
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- EmailJS SDK -->
+    <script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
+
+    <script>
+
+          (function () {
+                emailjs.init("jsQBGwYcPVus6N77X");  
+               
+            })();
+
+
+
+        document.addEventListener('DOMContentLoaded', () => {
+
+            const form = document.getElementById('contactForm');
+            const submitBtn = document.getElementById('submitBtn');
+            const spinner = submitBtn.querySelector('.spinner-border');
+            const btnText = submitBtn.querySelector('.btn-text');
+
+            submitBtn.addEventListener('click', function (e) {
+                e.preventDefault();
+
+                // UI loading state
+                submitBtn.disabled = true;
+                spinner.classList.remove('d-none');
+                btnText.textContent = 'Sending…';
+
+                const params = {
+                    name: document.getElementById('name').value.trim(),
+                    email: document.getElementById('email').value.trim(),
+                    message: document.getElementById('message').value.trim(),
+                    time: new Date().toLocaleString()
+                };
+
+                emailjs.send(
+                    'service_3wna58l',        // YOUR Gmail Service ID
+                    'template_mmrk0hq',       // Template ID from EmailJS
+                    params
+                )
+                .then(() => {
+                    // Success modal
+                    const modal = new bootstrap.Modal(
+                        document.getElementById("successModal")
+                    );
+                    modal.show();
+                    form.reset();
+                })
+                .catch(() => {
+                    // Error modal
+                    document.querySelector("#successModal h5").textContent =
+                        "❌ Submission Failed!";
+                    document.querySelector("#successModal p").textContent =
+                        "Unable to send message. Please try again.";
+
+                    const modal = new bootstrap.Modal(
+                        document.getElementById("successModal")
+                    );
+                    modal.show();
+                })
+                .finally(() => {
+                    submitBtn.disabled = false;
+                    spinner.classList.add('d-none');
+                    btnText.textContent = "Send Message";
+                });
+            });
+
+        });
+
+    document.addEventListener('DOMContentLoaded', () => {
+
+        const counters = document.querySelectorAll('.counter');
+        const speed = 200;
+
+        const animateCounter = (counter) => {
+            const target = +counter.getAttribute('data-target');
+            const count = +counter.innerText;
+            const increment = target / speed;
+
+            if (count < target) {
+                counter.innerText = Math.ceil(count + increment);
+                setTimeout(() => animateCounter(counter), 15);
+            } else {
+                counter.innerText = target;
+            }
+        };
+
+        const observer = new IntersectionObserver((entries, obs) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const counter = entry.target;
+                    counter.innerText = "0"; // reset before start
+                    animateCounter(counter);
+                    obs.unobserve(counter); // run only once
+                }
+            });
+        }, {
+            threshold: 0.3  
+        });
+
+        counters.forEach(counter => observer.observe(counter));
+
+    });
+
+    document.addEventListener('DOMContentLoaded', () => {
+    const carousel = new bootstrap.Carousel(document.getElementById('heroCarousel'));
+
+    document.querySelector('.carousel-control-prev').addEventListener('click', () => carousel.prev());
+    document.querySelector('.carousel-control-next').addEventListener('click', () => carousel.next());
+    });
+
+    
+
+    
+    </script>
+
+</body>
+</html>
