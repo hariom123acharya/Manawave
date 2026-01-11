@@ -6,7 +6,43 @@
     <title>Manawave Exim Globe - Import & Export Solutions</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;800&display=swap" rel="stylesheet">
     <style>
+        /* Product Animations */
+
+        /* ============================= */
+        /* BRAND TEXT PREMIUM UPGRADE */
+        /* ============================= */
+
+        .brand-text {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.35rem;        /* Bigger */
+            font-weight: 800;
+            letter-spacing: 1.8px;
+            text-transform: uppercase;
+            line-height: 1.2;
+        }
+
+        /* Slight emphasis on hover */
+        .brand-glow:hover .brand-text {
+            letter-spacing: 2.2px;
+        }
+
+        .animate-card {
+            opacity: 0;
+            transform: translateY(50px) scale(0.95);
+            transition: all 0.8s ease;
+        }
+
+        .animate-card.show {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+        }
+
+        .animate-card:hover {
+            transform: translateY(-10px) scale(1.03) rotate(0.5deg);
+        }
+
         body {
             font-family: "Poppins", sans-serif;
             scroll-behavior: smooth;
@@ -26,6 +62,7 @@
         nav a.nav-link:hover {
             color: #ffc107 !important;
         }
+
         .hero {
             position: relative;
             height: 95vh;
@@ -108,12 +145,14 @@
             margin-bottom: 15px;
         }
         .team-card img {
-            width: 150px;
-            height: 150px;
+            width: 160px;
+            height: 190px;
             object-fit: cover;
-            border-radius: 50%;
+            border-radius: 10px;      /* soft rectangle */
             margin-bottom: 15px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.15);
         }
+
         .team-card .social-links a {
             color: #003366;
             margin: 0 5px;
@@ -369,14 +408,104 @@
         .card-body {
             padding: 20px; /* Slightly reduced for balance */
         }
+        /* ============================= */
+        /* TRANSPARENT FLOATING NAVBAR */
+        /* ============================= */
+
+        .glass-navbar {
+            background: rgba(0, 0, 0, 0.25);   /* transparent */
+            backdrop-filter: blur(10px);      /* glass effect */
+            -webkit-backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(255,255,255,0.15);
+            transition: all 0.4s ease;
+        }
+
+        /* Floating look */
+        .glass-navbar .container {
+            padding: 10px 0;
+        }
+
+        /* Navbar links */
+        .navbar-dark .nav-link {
+            color: rgba(255,255,255,0.85) !important;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .navbar-dark .nav-link:hover {
+            color: #ffffff !important;
+            transform: translateY(-1px);
+        }
+
+        /* ============================= */
+        /* BRAND (LOGO + TEXT) AWESOME */
+        /* ============================= */
+
+        .brand-logo {
+            transition: transform 0.5s ease;
+        }
+
+        .brand-glow {
+            letter-spacing: 1px;
+            font-size: 1.05rem;
+            text-shadow: 0 0 10px rgba(255,255,255,0.25);
+            transition: all 0.4s ease;
+        }
+
+        .brand-glow:hover {
+            text-shadow: 0 0 20px rgba(255,193,7,0.8);
+        }
+
+        .brand-glow:hover .brand-logo {
+            transform: rotate(-5deg) scale(1.1);
+        }
+
+        /* ============================= */
+        /* LOGIN / LOGOUT BUTTON FLOAT */
+        /* ============================= */
+
+        .log-item .btn {
+            backdrop-filter: blur(5px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.25);
+        }
+
+        /* ============================= */
+        /* NAVBAR MENU – GOLDEN STYLE */
+        /* ============================= */
+
+        .glass-navbar .nav-link {
+            color: #ffc107 !important;        /* Golden */
+            font-weight: 600;
+            letter-spacing: 0.8px;
+            transition: all 0.3s ease;
+        }
+
+        /* Hover effect */
+        .glass-navbar .nav-link:hover {
+            color: #ffffff !important;
+            text-shadow: 0 0 10px rgba(255,193,7,0.8);
+            transform: translateY(-1px);
+        }
+
+        /* Active link (optional) */
+        .glass-navbar .nav-link.active {
+            color: #ffffff !important;
+            border-bottom: 2px solid #ffc107;
+        }
+
     </style>
 </head>
 <body>
     <!-- Your existing body content remains unchanged -->
     <!-- Navbar -->
-    <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top glass-navbar">
+
         <div class="container">
-            <a class="navbar-brand fw-bold text-warning" href="#">MANAWAVE EXIM GLOBE PVT LTD</a>
+            <a class="navbar-brand d-flex align-items-center fw-bold text-white brand-glow" href="#">
+                <img src="{% static 'images/logo.jpeg' %}" alt="Manawave Logo" height="42" class="me-2 brand-logo">
+                <span class="brand-text">MANAWAVE EXIM GLOBE PVT LTD</span>
+            </a>
+
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -389,6 +518,12 @@
                     <li class="nav-item"><a href="#team" class="nav-link">Our Team</a></li>
                     <li class="nav-item"><a href="#contact" class="nav-link">Contact</a></li>
                     <ul class="navbar-nav ms-auto align-items-center">
+                    <!-- Login Button -->
+                    <li class="log-item" id="login-btn" style="display: none;">
+                        <a href="/login/" class="nav-link btn btn-warning text-dark px-3 rounded-pill ms-2">
+                        <i class="fa-solid fa-right-to-bracket"></i> Login
+                        </a>
+                    </li>
                     </ul>
                 </ul>
             </div>
@@ -397,19 +532,12 @@
 
     <!-- Hero Section -->
     <section id="home" class="hero">
-        <div id="heroCarousel" class="carousel slide" data-bs-ride="carousel" data-bs-interval="4000">
-
-            <!-- WHITE DOTS (Indicators) -->
-            <div class="carousel-indicators">
-            <button type="button" data-bs-target="#heroCarousel" data-bs-slide-to="0" class="active custom-dot"></button>
-            <button type="button" data-bs-target="#heroCarousel" data-bs-slide-to="1" class="custom-dot"></button>
-            <button type="button" data-bs-target="#heroCarousel" data-bs-slide-to="2" class="custom-dot"></button>
-            </div>
+            <div id="heroCarousel" class="carousel slide carousel-fade" data-bs-ride="carousel" data-bs-interval="5000"></div>
 
             <!-- Carousel Slides -->
             <div class="carousel-inner">
             <div class="carousel-item active">
-                <div class="hero-slide" style="background:linear-gradient(rgba(0,0,0,0.5),rgba(0,0,0,0.6)), url('images/CORO1.jpg') center bottom/cover no-repeat;">
+                <div class="hero-slide" style="background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.6)), url('images/CORO1.jpg') center bottom/cover no-repeat;">
                 <div class="hero-content">
                     <h1>Connecting Global Markets Seamlessly</h1>
                     <p>Trusted Partner for Import, Export & International Logistics</p>
@@ -419,7 +547,7 @@
             </div>
 
             <div class="carousel-item">
-                <div class="hero-slide" style="background:linear-gradient(rgba(0,0,0,0.5),rgba(0,0,0,0.6)),url('images/CORO2.jpg') center bottom/cover no-repeat;">
+                <div class="hero-slide" style="background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.6)), url('images/CORO2.jpg') center bottom/cover no-repeat;">
                 <div class="hero-content">
                     <h1>Expanding Trade Horizons</h1>
                     <p>Your Gateway to Global Supply Chains</p>
@@ -429,7 +557,7 @@
             </div>
 
             <div class="carousel-item">
-                <div class="hero-slide" style="background:linear-gradient(rgba(0,0,0,0.5),rgba(0,0,0,0.6)),url('images/CORO3.jpg') center bottom/cover no-repeat;">
+                <div class="hero-slide" style="background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.6)), url('images/CORO3.jpg') center bottom/cover no-repeat;">
                 <div class="hero-content">
                     <h1>Reliable, Fast, Global</h1>
                     <p>Delivering Excellence Across Borders</p>
@@ -509,18 +637,20 @@
 
             <!-- Counters -->
             <div class="row text-center mt-4">
-            <div class="col-md-4">
-                <h2 class="fw-bold counter" data-target="2" style="color:#003366;">0</h2>
-                <p class="fw-semibold" style="color:#003366;">Years of Excellence</p>
-            </div>
-            <div class="col-md-4">
-                <h2 class="fw-bold counter" data-target="50" style="color:#003366;">0</h2>
-                <p class="fw-semibold" style="color:#003366;">Satisfied Clients</p>
-            </div>
-            <div class="col-md-4">
-                <h2 class="fw-bold counter" data-target="450" style="color:#003366;">0</h2>
-                <p class="fw-semibold" style="color:#003366;">Delivered Items/Stock</p>
-            </div>
+                <div class="col-md-4">
+                    <h2 class="fw-bold counter" data-target="6" style="color:#003366;">0</h2>
+                    <p class="fw-semibold" style="color:#003366;">Years of Excellence</p>
+                </div>
+
+                <div class="col-md-4">
+                    <h2 class="fw-bold counter" data-target="75" style="color:#003366;">0</h2>
+                    <p class="fw-semibold" style="color:#003366;">Satisfied Clients</p>
+                </div>
+
+                <div class="col-md-4">
+                    <h2 class="fw-bold counter" data-target="500" style="color:#003366;">0</h2>
+                    <p class="fw-semibold" style="color:#003366;">Delivered Shipments</p>
+                </div>
             </div>
         </div>
         </div>
@@ -566,70 +696,80 @@
     </section>
 
 
-    <section id="products" class="mt-5">
+    <section id="products" class="mt-5 py-5 bg-light">
         <div class="container">
-            <h2 class="section-title">Our Products</h2>
+            <h2 class="section-title text-center mb-4">Premium Agro Commodities</h2>
+            <p class="text-center text-muted lead mb-5">
+                We export a comprehensive range of high-quality Indian agro commodities sourced directly from trusted farms — 
+                from finest rice varieties to pulses, aromatic spices, and much more — meeting global standards for bulk and international markets.
+            </p>
 
-            <div class="row g-4">
+            <!-- Hero showcase image - variety of agro products -->
+            <div class="text-center mb-5">
+                <img src="https://thumbs.dreamstime.com/b/colorful-arrangement-various-pulses-spices-vibrant-collection-diverse-wooden-bowls-showcasing-array-colors-textures-336761629.jpg" 
+                    class="img-fluid rounded shadow" 
+                    alt="Wide variety of Indian agro commodities - rice, pulses, spices" 
+                    style="max-height: 450px; object-fit: cover;">
+                <p class="text-muted mt-2 small">Our extensive range: Rice • Pulses • Spices • Grains & more</p>
+            </div>
 
-                <!-- Product 1 -->
-                <div class="col-md-4">
-                    <div class="card custom-card team-card text-center h-100">
+            <div class="row g-4 justify-content-center">
+                <!-- IR64 Rice -->
+                <div class="col-md-4 animate-card">
+                    <div class="card custom-card text-center h-100 shadow-sm border-0">
                         <div class="product-img-container">
-                            <img src="https://basmatiriceexport.com/wp-content/uploads/2024/05/IR64-Parboiled-Rice-Exporters-in-India-1024x576.jpg.webp" 
-                                class="img-fluid product-img" alt="IR64 Rice">
+                            <img src="https://tiimg.tistatic.com/fp/1/006/266/ir64-parboiled-rice-5--659.jpg" 
+                                class="img-fluid product-img" 
+                                alt="Premium IR64 Parboiled Rice">
                         </div>
-                        <div class="card-body d-flex flex-column">
-                            <h5 class="card-title mt-3">IR64 Rice</h5>
-                            <p class="card-text text-muted">Premium Export Quality</p>
-                            <p class="card-text mt-auto">
-                                High-quality IR64 rice known for its excellent grain texture,
-                                consistency, and suitability for global markets.
-                            </p>
+                        <div class="card-body">
+                            <h5 class="card-title">IR64 Rice</h5>
+                            <p class="text-muted mb-2">Parboiled • Long Grain • Export Quality</p>
+                            <p class="card-text">High-quality IR64 parboiled rice (including various broken grades) — perfect for bulk international supply and global markets.</p>
                         </div>
                     </div>
                 </div>
 
-                <!-- Product 2 -->
-                <div class="col-md-4">
-                    <div class="card custom-card team-card text-center h-100">
+                <!-- Pulses -->
+                <div class="col-md-4 animate-card">
+                    <div class="card custom-card text-center h-100 shadow-sm border-0">
                         <div class="product-img-container">
-                            <img src="https://media.istockphoto.com/id/1182295809/photo/brown-whole-coconut-dry-pattern-tropical-many-fruits-pile.jpg?s=170667a&w=0&k=20&c=aAQSr-hwaDmIiBBSEeYgPyBj-UO_uQgC2cPlJuLPZHE=" 
-                                class="img-fluid product-img" alt="Coconut">
+                            <img src="https://www.shutterstock.com/image-photo/legumes-lentils-chickpea-beans-assortment-260nw-1960506445.jpg" 
+                                class="img-fluid product-img" 
+                                alt="Assorted Premium Indian Pulses">
                         </div>
-                        <div class="card-body d-flex flex-column">
-                            <h5 class="card-title mt-3">Coconut</h5>
-                            <p class="card-text text-muted">Coming Soon</p>
-                            <p class="card-text mt-auto">
-                                Fresh and processed coconut products will be introduced soon,
-                                meeting international quality standards.
-                            </p>
+                        <div class="card-body">
+                            <h5 class="card-title">Pulses</h5>
+                            <p class="text-muted mb-2">Lentils • Chickpeas • Moong • Toor & More</p>
+                            <p class="card-text">Premium export-grade pulses and lentils — cleaned, sorted, and packed to meet stringent international quality standards.</p>
                         </div>
                     </div>
                 </div>
 
-                <!-- Product 3 -->
-                <div class="col-md-4">
-                    <div class="card custom-card team-card text-center h-100">
+                <!-- Spices -->
+                <div class="col-md-4 animate-card">
+                    <div class="card custom-card text-center h-100 shadow-sm border-0">
                         <div class="product-img-container">
-                            <img src="https://restaurantindia.s3.ap-south-1.amazonaws.com/s3fs-public/2025-03/Makhana%20Benefits%20%282%29.jpg" 
-                                class="img-fluid product-img" alt="Makhana">
+                            <img src="https://img.freepik.com/premium-photo/indian-colourful-spices-group-photo-four-basic-indian-spices-like-raw-red-chilli-turmeric-coriander-cumin-powder-selective-focus_466689-22651.jpg?referrer=grok.com" 
+                                class="img-fluid product-img" 
+                                alt="Vibrant Indian Spices Collection">
                         </div>
-                        <div class="card-body d-flex flex-column">
-                            <h5 class="card-title mt-3">Makhana (Fox Nuts)</h5>
-                            <p class="card-text text-muted">Coming Soon</p>
-                            <p class="card-text mt-auto">
-                                Premium-grade makhana sourced for nutrition, purity,
-                                and export-ready packaging.
-                            </p>
+                        <div class="card-body">
+                            <h5 class="card-title">Indian Spices</h5>
+                            <p class="text-muted mb-2">Turmeric • Chilli • Cumin • Coriander & Blends</p>
+                            <p class="card-text">Aromatic, premium-quality Indian spices — pure, vibrant, and ready for worldwide export and culinary excellence.</p>
                         </div>
                     </div>
                 </div>
 
+                <!-- Optional: Add more cards here for other commodities like Basmati, Grains, etc. -->
+            </div>
+
+            <div class="text-center mt-5">
+                <a href="#contact" class="btn btn-primary btn-lg">Explore Full Range & Get Quote</a>
             </div>
         </div>
     </section>
-
 
     <!-- Features Section (Replaces Why Choose Us) -->
     <section id="features" class="features-section">
@@ -637,7 +777,6 @@
             <div class="row align-items-center">
                 <div class="col-lg-5">
                     <img class="img-fluid w-100 features-img" src="images/NETWORK.jpg" alt="Features">
-
                 </div>
                 <div class="col-lg-7 py-5 py-lg-0">
                     <h6>Why Choose Us</h6>
@@ -663,7 +802,7 @@
                     <div class="card custom-card team-card text-center">
                         <div class="card-body">
                             <img src="images/aman.jpeg" class="img-fluid" alt="CEO">
-                            <h5 class="card-title mt-3">Arvindh Sanatala</h5>
+                            <h5 class="card-title mt-3">Tanvir Singh Chawla</h5>
                             <p class="card-text text-muted">Director</p>
                             <p class="card-text">Leading Manawave Exim Globe with a vision for seamless global logistics.</p>
                             <div class="social-links">
@@ -692,8 +831,8 @@
                 <div class="col-md-4">
                     <div class="card custom-card team-card text-center">
                         <div class="card-body">
-                            <img src="images/pic3.jpeg" class="img-fluid" alt="Partner2">
-                            <h5 class="card-title mt-3">Tanvir Singh Chawla</h5>
+                            <img src="images/pic3.jpeg" class="img-fluid team-img" alt="Partner2">
+                            <h5 class="card-title mt-3">Aravindh Sanapala</h5>
                             <p class="card-text text-muted">Director</p>
                             <p class="card-text">Ensuring financial strategies align with global growth goals.</p>
                             <div class="social-links">
@@ -797,7 +936,6 @@
             })();
 
 
-
         document.addEventListener('DOMContentLoaded', () => {
 
             const form = document.getElementById('contactForm');
@@ -821,29 +959,43 @@
                 };
 
                 emailjs.send(
-                    'service_3wna58l',        // YOUR Gmail Service ID
-                    'template_mmrk0hq',       // Template ID from EmailJS
+                    'service_3wna58l',
+                    'template_mmrk0hq',
                     params
                 )
                 .then(() => {
-                    // Success modal
-                    const modal = new bootstrap.Modal(
-                        document.getElementById("successModal")
-                    );
+                    const modalElement = document.getElementById("successModal");
+                    const modal = new bootstrap.Modal(modalElement);
+
+                    // Reset modal content (in case error happened before)
+                    modalElement.querySelector("h5").textContent = "✅ Successfully Submitted!";
+                    modalElement.querySelector("p").textContent =
+                        "Your message has been received. We’ll connect with you soon 😊";
+
                     modal.show();
+
+                    // AUTO CLOSE AFTER 3 SECONDS
+                    setTimeout(() => {
+                        modal.hide();
+                    }, 2000);
+
                     form.reset();
                 })
                 .catch(() => {
-                    // Error modal
-                    document.querySelector("#successModal h5").textContent =
+                    const modalElement = document.getElementById("successModal");
+                    const modal = new bootstrap.Modal(modalElement);
+
+                    modalElement.querySelector("h5").textContent =
                         "❌ Submission Failed!";
-                    document.querySelector("#successModal p").textContent =
+                    modalElement.querySelector("p").textContent =
                         "Unable to send message. Please try again.";
 
-                    const modal = new bootstrap.Modal(
-                        document.getElementById("successModal")
-                    );
                     modal.show();
+
+                    // AUTO CLOSE AFTER 3 SECONDS
+                    setTimeout(() => {
+                        modal.hide();
+                    }, 3000);
                 })
                 .finally(() => {
                     submitBtn.disabled = false;
@@ -861,14 +1013,14 @@
 
         const animateCounter = (counter) => {
             const target = +counter.getAttribute('data-target');
-            const count = +counter.innerText;
-            const increment = target / speed;
+            const count = +counter.innerText.replace('+', '');
+            const increment = target / 200;
 
             if (count < target) {
                 counter.innerText = Math.ceil(count + increment);
                 setTimeout(() => animateCounter(counter), 15);
             } else {
-                counter.innerText = target;
+                counter.innerText = target + "+"; // ADD + HERE
             }
         };
 
@@ -890,15 +1042,25 @@
     });
 
     document.addEventListener('DOMContentLoaded', () => {
-    const carousel = new bootstrap.Carousel(document.getElementById('heroCarousel'));
+        const carousel = new bootstrap.Carousel(document.getElementById('heroCarousel'));
 
-    document.querySelector('.carousel-control-prev').addEventListener('click', () => carousel.prev());
-    document.querySelector('.carousel-control-next').addEventListener('click', () => carousel.next());
+        document.querySelector('.carousel-control-prev').addEventListener('click', () => carousel.prev());
+        document.querySelector('.carousel-control-next').addEventListener('click', () => carousel.next());
+        });
+    
+    document.addEventListener("DOMContentLoaded", () => {
+        const cards = document.querySelectorAll(".animate-card");
+
+        const observer = new IntersectionObserver(entries => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add("show");
+                }
+            });
+        }, { threshold: 0.2 });
+
+        cards.forEach(card => observer.observe(card));
     });
-
-    
-
-    
     </script>
 
 </body>
